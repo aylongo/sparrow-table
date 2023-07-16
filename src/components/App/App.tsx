@@ -1,8 +1,8 @@
 import React from "react";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { red } from "@mui/material/colors";
 import { Wrapper } from "../Wrapper";
 import "../../styles/App.css";
-import { red } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {

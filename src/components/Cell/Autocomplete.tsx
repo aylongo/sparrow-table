@@ -33,7 +33,6 @@ const AutocompleteCell = ({
     <Autocomplete
       autoFocus
       fullWidth
-      disablePortal
       value={params.value}
       options={options}
       onChange={handleOnChange}
