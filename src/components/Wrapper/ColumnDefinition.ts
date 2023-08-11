@@ -3,7 +3,7 @@ import {
   GridValueGetterParams,
 } from "@mui/x-data-grid";
 import { renderAutocompleteCell, renderEditAutocompleteCell } from "../Cell";
-import { NestGridColDef } from "../../types";
+import { TableColDef } from "../../types";
 
 const validateAge = (params: GridPreProcessEditCellProps) => {
   if (!params.props.value || params.props.value < 0) {
@@ -11,7 +11,7 @@ const validateAge = (params: GridPreProcessEditCellProps) => {
   }
 }
 
-const columns: NestGridColDef[] = [
+const columns: TableColDef[] = [
   { field: "id", headerName: "מזהה", width: 90 },
   {
     field: "firstName",
@@ -84,7 +84,7 @@ const columns: NestGridColDef[] = [
     width: 160,
     renderCell: renderAutocompleteCell,
     renderEditCell: renderEditAutocompleteCell({
-      options: ["שמן", "גדול"],
+      options: ["שמן", "גדול", "שמנמן"],
       placeholder: "תואר המשקל",
     }),
     editable: true,

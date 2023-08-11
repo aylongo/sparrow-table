@@ -1,9 +1,9 @@
 import { GridColDef, GridPreProcessEditCellProps } from "@mui/x-data-grid";
 
-type NestValidationFunction = (params: GridPreProcessEditCellProps) => string | void;
+type TableValidation = (params: GridPreProcessEditCellProps) => string | void;
 
-type NestGridColDef = GridColDef & {
-  validation?: NestValidationFunction;
+type TableColDef = GridColDef & {
+  validation?: TableValidation;
 };
 
-export type { NestGridColDef, NestValidationFunction };
+export type { TableColDef, TableValidation };

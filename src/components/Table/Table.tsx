@@ -2,15 +2,15 @@ import React from "react";
 import { DataGrid, GridPreProcessEditCellProps, GridRowsProp, heIL } from "@mui/x-data-grid";
 import { Alert } from "@mui/material";
 import StyledBox from "./StyledBox";
-import { NestGridColDef, NestValidationFunction } from "../../types";
+import { TableColDef, TableValidation } from "../../types";
 
-interface EditableTableProps {
+interface TableProps {
   rows: GridRowsProp;
-  columns: NestGridColDef[];
+  columns: TableColDef[];
 }
 
 const validateColumn = (
-  validation: NestValidationFunction,
+  validation: TableValidation,
   params: GridPreProcessEditCellProps
 ) => {
   const validationResult = validation(params);
@@ -18,7 +18,7 @@ const validateColumn = (
   return validationResult ? { ...params.props, error: true } : { ...params.props, error: false };
 };
 
-const parseColumnDefs = (columns: NestGridColDef[]) => {
+const parseColumnDefs = (columns: TableColDef[]) => {
   return columns.map(({ validation, ...column }) => ({
     ...column,
     preProcessEditCellProps: validation && ((params: GridPreProcessEditCellProps) =>
@@ -26,7 +26,7 @@ const parseColumnDefs = (columns: NestGridColDef[]) => {
   }));
 };
 
-const EditableTable = ({ rows, columns }: EditableTableProps) => {
+const Table = ({ rows, columns }: TableProps) => {
   return (
     <StyledBox sx={{ height: 300, width: "80%", direction: 'rtl' }}>
       <DataGrid
@@ -46,4 +46,4 @@ const EditableTable = ({ rows, columns }: EditableTableProps) => {
   );
 };
 
-export default EditableTable;
+export default Table;

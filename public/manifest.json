@@ -1,6 +1,6 @@
 {
-  "short_name": "NEST Tables",
-  "name": "NEST Tables Sparrow Library",
+  "short_name": "sparrow-table",
+  "name": "Sparrow Table",
   "icons": [
     {
       "src": "favicon.ico",
