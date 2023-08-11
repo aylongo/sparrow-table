@@ -2,7 +2,7 @@ import {
   GridPreProcessEditCellProps,
   GridValueGetterParams,
 } from "@mui/x-data-grid";
-import { renderAutocompleteCell, renderEditAutocompleteCell } from "../Cell";
+import { renderAutocompleteCell, renderEditAutocompleteCell } from "../Cells/TableAutocompleteCell";
 import { TableColDef } from "../../types";
 
 const validateAge = (params: GridPreProcessEditCellProps) => {
@@ -56,6 +56,18 @@ const columns: TableColDef[] = [
     editable: true,
   },
   {
+    field: "weight",
+    headerName: "משקל (שם תואר)",
+    headerAlign: 'left',
+    width: 160,
+    renderCell: renderAutocompleteCell,
+    renderEditCell: renderEditAutocompleteCell({
+      options: ["שמן", "גדול", "שמנמן"],
+      placeholder: "תואר המשקל",
+    }),
+    editable: true,
+  },
+  {
     field: "isRolling",
     headerName: "האם מתגלגל?",
     headerAlign: 'left',
@@ -75,18 +87,6 @@ const columns: TableColDef[] = [
       { id: "BR", text: "ברזיל" },
       { id: "FR", text: "צרפת" },
     ],
-    editable: true,
-  },
-  {
-    field: "weight",
-    headerName: "משקל (שם תואר)",
-    headerAlign: 'left',
-    width: 160,
-    renderCell: renderAutocompleteCell,
-    renderEditCell: renderEditAutocompleteCell({
-      options: ["שמן", "גדול", "שמנמן"],
-      placeholder: "תואר המשקל",
-    }),
     editable: true,
   },
 ];
