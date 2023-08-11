@@ -23,13 +23,14 @@ const AutocompleteCell = ({
   params,
 }: AutocompleteCellProps) => {
   const inputRef = useRef<HTMLElement>();
-
+  const error = params.error;
+  
   useEnhancedEffect(() => {
     if (params.hasFocus && inputRef.current) {
       inputRef.current.focus();
     }
   }, [params.hasFocus]);
-
+  
   const handleOnChange = (
     event: React.SyntheticEvent<Element, Event>,
     value: Object | null
@@ -47,15 +48,16 @@ const AutocompleteCell = ({
       fullWidth
       value={params.value}
       options={options}
+      noOptionsText="אין תוצאות"
       onChange={handleOnChange}
       renderInput={(params) => (
         <TextField
           {...params}
-          autoFocus
+          hiddenLabel
           inputRef={inputRef}
           variant="outlined"
           placeholder={placeholder}
-          hiddenLabel={true}
+          error={error}
         />
       )}
     />
