@@ -1,10 +1,10 @@
 import React from "react";
-import { DataGrid, GridPreProcessEditCellProps, GridRowsProp, heIL } from "@mui/x-data-grid";
+import { DataGrid, DataGridProps, GridPreProcessEditCellProps, GridRowsProp, heIL } from "@mui/x-data-grid";
 import { Alert } from "@mui/material";
 import StyledBox from "./StyledBox";
 import { TableColDef, TableValidation } from "../../types";
 
-interface TableProps {
+interface TableProps extends Omit<DataGridProps, 'rows' | 'columns'> {
   rows: GridRowsProp;
   columns: TableColDef[];
 }
@@ -26,7 +26,7 @@ const parseColumnDefs = (columns: TableColDef[]) => {
   }));
 };
 
-const Table = ({ rows, columns }: TableProps) => {
+const Table = ({ rows, columns, ...props }: TableProps) => {
   return (
     <StyledBox sx={{ height: 300, width: "80%", direction: 'rtl' }}>
       <DataGrid
@@ -40,6 +40,7 @@ const Table = ({ rows, columns }: TableProps) => {
         showCellVerticalBorder
         hideFooterSelectedRowCount
         localeText={heIL.components.MuiDataGrid.defaultProps.localeText}
+        {...props}
       />
       <Alert severity="error"></Alert>
     </StyledBox>

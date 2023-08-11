@@ -21,7 +21,7 @@ const rows = [
 const Wrapper = () => {
   return (
     <>
-      <Table rows={rows} columns={columns} />
+      <Table rows={rows} columns={columns} showColumnVerticalBorder={false} />
     </>
   );
 };

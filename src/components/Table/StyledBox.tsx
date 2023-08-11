@@ -9,9 +9,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
     },
   },
   "& .Mui-error": {
-    backgroundColor: `rgb(126,10, , ${
-      theme.palette.mode === "dark" ? 0 : 0.1
-    })`,
+    backgroundColor: `rgb(204,0,0, ${theme.palette.mode === "dark" ? 0.2 : 0})`,
     color: theme.palette.error.main,
   },
 }));
