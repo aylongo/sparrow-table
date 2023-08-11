@@ -1,5 +1,6 @@
 # sparrow-table
- A customized table component react library using MUI DataGrid
+A react library that exports a customized table component by wrapping @mui/x-data-grid library.
+Using create-react-app to run the app for developing.
 
 ## Getting Started with Create React App
 
