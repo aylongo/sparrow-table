@@ -1,3 +1,3 @@
-import { renderAutocompleteCell, renderEditAutocompleteCell } from "./Autocomplete";
+import { renderEditAutocompleteCell } from "./Autocomplete";
 
-export { renderAutocompleteCell, renderEditAutocompleteCell };
+export { renderEditAutocompleteCell };

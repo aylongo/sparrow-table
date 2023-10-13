@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import {
   GridRenderCellParams,
@@ -23,14 +23,15 @@ const AutocompleteCell = ({
   params,
 }: AutocompleteCellProps) => {
   const inputRef = useRef<HTMLElement>();
+  const [inputValue] = useState(params.value);
   const error = params.error;
-  
+
   useEnhancedEffect(() => {
     if (params.hasFocus && inputRef.current) {
       inputRef.current.focus();
     }
   }, [params.hasFocus]);
-  
+
   const handleOnChange = (
     event: React.SyntheticEvent<Element, Event>,
     value: Object | null
@@ -46,7 +47,7 @@ const AutocompleteCell = ({
     <Autocomplete
       autoFocus
       fullWidth
-      value={params.value}
+      value={inputValue}
       options={options}
       noOptionsText="אין תוצאות"
       onChange={handleOnChange}
@@ -64,8 +65,6 @@ const AutocompleteCell = ({
   );
 };
 
-const renderAutocompleteCell = (params: GridRenderCellParams) => params.value;
-
 const renderEditAutocompleteCell = ({
   options,
   placeholder,
@@ -79,4 +78,4 @@ const renderEditAutocompleteCell = ({
   );
 };
 
-export { renderAutocompleteCell, renderEditAutocompleteCell };
+export { renderEditAutocompleteCell };
