@@ -4,6 +4,7 @@ type TableValidation = (params: GridPreProcessEditCellProps) => string | void;
 
 type TableColDef = GridColDef & {
   validation?: TableValidation;
+  required?: boolean;
 };
 
 export type { TableColDef, TableValidation };

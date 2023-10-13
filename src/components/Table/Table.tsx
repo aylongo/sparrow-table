@@ -1,37 +1,61 @@
-import React from "react";
-import { DataGrid, DataGridProps, GridPreProcessEditCellProps, GridRowsProp, heIL } from "@mui/x-data-grid";
-import { Alert } from "@mui/material";
+import React, { useMemo } from "react";
+import {
+  DataGrid,
+  DataGridProps,
+  GridColDef,
+  GridColumnHeaderParams,
+  GridPreProcessEditCellProps,
+  GridRowsProp,
+  heIL,
+} from "@mui/x-data-grid";
 import StyledBox from "./StyledBox";
 import { TableColDef, TableValidation } from "../../types";
 
-interface TableProps extends Omit<DataGridProps, 'rows' | 'columns'> {
+interface TableProps extends Omit<DataGridProps, "rows" | "columns"> {
   rows: GridRowsProp;
   columns: TableColDef[];
+  canUploadFromExcel?: boolean;
 }
 
-const validateColumn = (
-  validation: TableValidation,
-  params: GridPreProcessEditCellProps
-) => {
-  const validationResult = validation(params);
+const getFormattedHeaderName = (headerName: string, required?: boolean) =>
+  required ? headerName.concat("*") : headerName;
 
-  return validationResult ? { ...params.props, error: true } : { ...params.props, error: false };
+const validateColumn = (
+  validation: TableValidation | undefined,
+  params: GridPreProcessEditCellProps,
+  required: boolean | undefined
+) => {
+  const validationResult = validation && validation(params);
+  const isEmpty = !params.props.value;
+
+  const hasError = !!(required
+    ? isEmpty || validationResult
+    : validationResult);
+
+  console.log({ value: params.props.value, hasError });
+
+  return { ...params.props, error: hasError };
 };
 
-const parseColumnDefs = (columns: TableColDef[]) => {
-  return columns.map(({ validation, ...column }) => ({
-    ...column,
-    preProcessEditCellProps: validation && ((params: GridPreProcessEditCellProps) =>
-      validateColumn(validation, params)),
+const parseColDefs = (columns: TableColDef[]) => {
+  return columns.map(({ validation, required, ...columnDef }) => ({
+    renderHeader: () => columnDef.headerName && getFormattedHeaderName(columnDef.headerName, required),
+    preProcessEditCellProps:
+      (required || validation) &&
+      ((params: GridPreProcessEditCellProps) =>
+        validateColumn(validation, params, required)),
+    ...columnDef,
   }));
 };
 
 const Table = ({ rows, columns, ...props }: TableProps) => {
+  const parsedColDefs = useMemo<GridColDef[]>(() => parseColDefs(columns), [columns]);
+
   return (
-    <StyledBox sx={{ height: 300, width: "80%", direction: 'rtl' }}>
+    <StyledBox sx={{ height: 300, width: "80%", direction: "rtl" }}>
       <DataGrid
         rows={rows}
-        columns={parseColumnDefs(columns)}
+        columns={parsedColDefs}
         editMode="row"
         pageSizeOptions={[]}
         density="compact"
@@ -42,7 +66,6 @@ const Table = ({ rows, columns, ...props }: TableProps) => {
         localeText={heIL.components.MuiDataGrid.defaultProps.localeText}
         {...props}
       />
-      <Alert severity="error"></Alert>
     </StyledBox>
   );
 };

@@ -2,48 +2,51 @@ import {
   GridPreProcessEditCellProps,
   GridValueGetterParams,
 } from "@mui/x-data-grid";
-import { renderAutocompleteCell, renderEditAutocompleteCell } from "../Cells/TableAutocompleteCell";
+import { renderEditAutocompleteCell } from "../Cells/TableAutocompleteCell";
 import { TableColDef } from "../../types";
 
 const validateAge = (params: GridPreProcessEditCellProps) => {
   if (!params.props.value || params.props.value < 0) {
     return "לא להטריל";
   }
-}
+};
 
 const columns: TableColDef[] = [
-  { field: "id", headerName: "מזהה", width: 90 },
+  { field: "id", headerName: "מזהה", width: 90, flex: 1 },
   {
     field: "firstName",
     headerName: "שם פרטי",
-    headerAlign: 'left',
+    headerAlign: "left",
     width: 150,
     flex: 1,
     editable: true,
+    required: true,
   },
   {
     field: "lastName",
     headerName: "שם משפחה",
-    headerAlign: 'left',
+    headerAlign: "left",
     width: 150,
     flex: 1,
     editable: true,
+    required: true,
   },
   {
     field: "age",
     headerName: "גיל",
-    headerAlign: 'left',
-    align: 'left',
+    headerAlign: "left",
+    align: "left",
     type: "number",
     width: 110,
     flex: 1,
     editable: true,
+    required: true,
     validation: validateAge,
   },
   {
     field: "fullName",
     headerName: "שם מלא",
-    headerAlign: 'left',
+    headerAlign: "left",
     description: "This column has a value getter and is not sortable.",
     sortable: false,
     width: 160,
@@ -54,19 +57,19 @@ const columns: TableColDef[] = [
   {
     field: "date",
     headerName: "תאריך",
-    headerAlign: 'left',
+    headerAlign: "left",
     type: "date",
     width: 160,
     flex: 1,
     editable: true,
+    required: true
   },
   {
     field: "weight",
     headerName: "משקל (שם תואר)",
-    headerAlign: 'left',
+    headerAlign: "left",
     width: 160,
     flex: 1,
-    renderCell: renderAutocompleteCell,
     renderEditCell: renderEditAutocompleteCell({
       options: ["שמן", "גדול", "שמנמן"],
       placeholder: "תואר המשקל",
@@ -76,12 +79,12 @@ const columns: TableColDef[] = [
       if (!params.props.value) {
         return "חייב להזין ערך";
       }
-    }
+    },
   },
   {
     field: "isRolling",
     headerName: "האם מתגלגל?",
-    headerAlign: 'left',
+    headerAlign: "left",
     type: "boolean",
     width: 160,
     flex: 1,
@@ -90,7 +93,7 @@ const columns: TableColDef[] = [
   {
     field: "country",
     headerName: "מדינה",
-    headerAlign: 'left',
+    headerAlign: "left",
     type: "singleSelect",
     width: 160,
     flex: 1,

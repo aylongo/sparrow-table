@@ -12,6 +12,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
     backgroundColor: `rgb(204,0,0, ${theme.palette.mode === "dark" ? 0.2 : 0})`,
     color: theme.palette.error.main,
   },
+  direction: 'rtl'
 }));
 
 export default StyledBox;
