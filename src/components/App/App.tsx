@@ -1,7 +1,7 @@
 import React from "react";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { red } from "@mui/material/colors";
-import { Wrapper } from "../Wrapper";
+import { ExampleTable } from "../Example";
 import "../../styles/App.css";
 
 const theme = createTheme({
@@ -22,7 +22,7 @@ const App = () => {
     <div className="app">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Wrapper />
+        <ExampleTable />
       </ThemeProvider>
     </div>
   );

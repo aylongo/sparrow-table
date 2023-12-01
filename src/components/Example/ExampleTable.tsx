@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "../Table";
+import { Table } from "../../Table";
 import { columns } from "./ColumnDefinition";
 
 const rows = [
@@ -18,7 +18,7 @@ const rows = [
   { id: 6, lastName: "ללא תקנה", firstName: null, age: 150 },
 ];
 
-const Wrapper = () => {
+const ExampleTable = () => {
   return (
     <>
       <Table rows={rows} columns={columns} showColumnVerticalBorder={false} />
@@ -26,4 +26,4 @@ const Wrapper = () => {
   );
 };
 
-export default Wrapper;
+export default ExampleTable;

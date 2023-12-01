@@ -2,8 +2,7 @@ import {
   GridPreProcessEditCellProps,
   GridValueGetterParams,
 } from "@mui/x-data-grid";
-import { renderEditAutocompleteCell } from "../Cells/TableAutocompleteCell";
-import { TableColDef } from "../../types";
+import { TableColDef } from "../../Table/types";
 
 const validateAge = (params: GridPreProcessEditCellProps) => {
   if (!params.props.value || params.props.value < 0) {
@@ -47,8 +46,7 @@ const columns: TableColDef[] = [
     field: "fullName",
     headerName: "שם מלא",
     headerAlign: "left",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
+    description: "This column has a value getter",
     width: 160,
     flex: 1,
     valueGetter: (params: GridValueGetterParams) =>
@@ -62,18 +60,17 @@ const columns: TableColDef[] = [
     width: 160,
     flex: 1,
     editable: true,
-    required: true
+    required: true,
   },
   {
     field: "weight",
     headerName: "משקל (שם תואר)",
     headerAlign: "left",
+    type: "autocomplete",
+    options: ["שמן", "גדול", "שמנמן"],
+    placeholder: "תואר המשקל",
     width: 160,
     flex: 1,
-    renderEditCell: renderEditAutocompleteCell({
-      options: ["שמן", "גדול", "שמנמן"],
-      placeholder: "תואר המשקל",
-    }),
     editable: true,
     validation: (params: GridPreProcessEditCellProps) => {
       if (!params.props.value) {
