@@ -1,5 +1,15 @@
 # sparrow-table
-A react library that exports a customized table component by wrapping @mui/x-data-grid library.
+==================
+
+A react project that runs a customized 'Table' component that **wraps and extends** @mui/x-data-grid library (DataGrid component).
+In this project 'Table' is behaved like a **library** (placed outside of the 'components' folder) and it's being imported in components.
+
+Table component **extends** the behavior of DataGrid (in Community version):
+- making it an **easy to use and create editable tables**
+- **extending and adding more column types** (autocomplete).
+
+==================
+
 Using create-react-app to run the app for developing.
 
 ## Getting Started with Create React App
