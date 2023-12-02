@@ -34,7 +34,7 @@ const Table = ({ rows, columns, slots, slotProps, ...props }: TableProps) => {
     errors,
     addError,
     removeError,
-    clearErrors,
+    clearRowErrors,
     getErrorsBy,
   } = useErrors();
 
@@ -80,7 +80,7 @@ const Table = ({ rows, columns, slots, slotProps, ...props }: TableProps) => {
   ]);
 
   const handleRowEditStop = (params: GridRowEditStopParams) => {
-    params.reason === GridRowEditStopReasons.escapeKeyDown && clearErrors();
+    params.reason === GridRowEditStopReasons.escapeKeyDown && clearRowErrors(params.id);
   };
 
   return (
