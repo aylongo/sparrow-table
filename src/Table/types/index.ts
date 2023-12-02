@@ -20,4 +20,6 @@ export type TableColDef = TableBaseColDef | AutocompleteColDef;
 
 export type TableColTypes = GridNativeColTypes | TableNativeColTypes;
 
-export type TableNativeColTypes = 'autocomplete';
+export type TableNativeColTypes = "autocomplete";
+
+export type TableErrors = Map<string, string>;
