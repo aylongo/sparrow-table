@@ -3,13 +3,18 @@ import {
   DataGrid,
   DataGridProps,
   GridColDef,
-  GridPreProcessEditCellProps,
   GridRowsProp,
+  GridPreProcessEditCellProps,
+  GridRowEditStopParams,
+  GridRowEditStopReasons,
   heIL,
 } from "@mui/x-data-grid";
 import StyledBox from "./StyledBox";
-import { TableColDef, TableNativeColTypes, TableValidation } from "./types";
+import { TableRootPropsContext } from "./contexts";
+import { TableCell } from "./slots";
 import { gridDefsByColTypes } from "./cells/gridDefsByColType";
+import { useErrors } from "./hooks";
+import { TableColDef, TableNativeColTypes, TableValidation } from "./types";
 
 interface TableProps extends Omit<DataGridProps, "rows" | "columns"> {
   rows: GridRowsProp;
@@ -24,54 +29,81 @@ const getGridDefsByColType = (colType: TableNativeColTypes) => {
 const getFormattedHeaderName = (headerName: string, required?: boolean) =>
   required ? headerName.concat("*") : headerName;
 
-const validateColumn = (
-  validation: TableValidation | undefined,
-  params: GridPreProcessEditCellProps,
-  required: boolean | undefined
-) => {
-  const validationResult = validation && validation(params);
-  const isEmpty = !params.props.value;
+const Table = ({ rows, columns, slots, slotProps, ...props }: TableProps) => {
+  const {
+    errors,
+    addError,
+    removeError,
+    clearErrors,
+    getErrorsBy,
+  } = useErrors();
 
-  const hasError = !!(required
-    ? isEmpty || validationResult
-    : validationResult);
+  const validateColumn = (
+    validation: TableValidation | undefined,
+    required: boolean | undefined,
+    params: GridPreProcessEditCellProps,
+    field: string
+  ) => {
+    removeError(params.id, field);
 
-  return { ...params.props, error: hasError };
-};
+    const requiredValidationResult =
+      required && !params.props.value && "שדה חובה";
+    const validationResult =
+      requiredValidationResult || (validation && validation(params));
 
-const parseColDefs = (columns: TableColDef[]) => {
-  return columns.map(({ validation, required, ...colDef }) => ({
-    ...(colDef.type &&
-      getGridDefsByColType(colDef.type as TableNativeColTypes)),
-    renderHeader: () =>
-      colDef.headerName && getFormattedHeaderName(colDef.headerName, required),
-    preProcessEditCellProps:
-      (required || validation) &&
-      ((params: GridPreProcessEditCellProps) =>
-        validateColumn(validation, params, required)),
-    ...colDef,
-  }));
-};
+    const hasError = Boolean(validationResult);
 
-const Table = ({ rows, columns, ...props }: TableProps) => {
+    if (hasError) {
+      addError(params.id, field, validationResult!);
+    }
+
+    return { ...params.props, error: hasError };
+  };
+
+  const parseColDefs = (columns: TableColDef[]) => {
+    return columns.map(({ validation, required, ...colDef }) => ({
+      ...(colDef.type &&
+        getGridDefsByColType(colDef.type as TableNativeColTypes)),
+      renderHeader: () =>
+        colDef.headerName &&
+        getFormattedHeaderName(colDef.headerName, required),
+      preProcessEditCellProps:
+        (required || validation) &&
+        ((params: GridPreProcessEditCellProps) =>
+          validateColumn(validation, required, params, colDef.field)),
+      ...colDef,
+    }));
+  };
+
   const parsedColDefs = useMemo<GridColDef[]>(() => parseColDefs(columns), [
     columns,
   ]);
 
+  const handleRowEditStop = (params: GridRowEditStopParams) => {
+    params.reason === GridRowEditStopReasons.escapeKeyDown && clearErrors();
+  };
+
   return (
-    <StyledBox sx={{ height: 300, width: "80%" }}>
-      <DataGrid
-        rows={rows}
-        columns={parsedColDefs}
-        editMode="row"
-        pageSizeOptions={[]}
-        density="compact"
-        showColumnVerticalBorder
-        showCellVerticalBorder
-        hideFooterSelectedRowCount
-        localeText={heIL.components.MuiDataGrid.defaultProps.localeText}
-        {...props}
-      />
+    <StyledBox sx={{ height: "50%", width: "80%" }}>
+      <TableRootPropsContext.Provider value={{ errors, getErrorsBy }}>
+        <DataGrid
+          rows={rows}
+          columns={parsedColDefs}
+          onRowEditStop={handleRowEditStop}
+          editMode="row"
+          pageSizeOptions={[]}
+          density="compact"
+          showColumnVerticalBorder
+          showCellVerticalBorder
+          hideFooterSelectedRowCount
+          localeText={heIL.components.MuiDataGrid.defaultProps.localeText}
+          slots={{
+            cell: TableCell,
+            ...slots,
+          }}
+          {...props}
+        />
+      </TableRootPropsContext.Provider>
     </StyledBox>
   );
 };
