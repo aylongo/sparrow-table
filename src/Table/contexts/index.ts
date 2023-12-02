@@ -1,0 +1,1 @@
+export { TableRootPropsContext } from './tableRootProps';
