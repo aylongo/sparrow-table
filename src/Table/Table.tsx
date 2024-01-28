@@ -84,7 +84,7 @@ const Table = ({ rows, columns, slots, slotProps, ...props }: TableProps) => {
   };
 
   return (
-    <StyledBox sx={{ height: "50%", width: "80%" }}>
+    <StyledBox sx={{ height: "35%", width: "80%" }}>
       <TableRootPropsContext.Provider value={{ errors, getErrorsBy }}>
         <DataGrid
           rows={rows}
