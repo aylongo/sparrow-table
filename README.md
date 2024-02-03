@@ -4,11 +4,11 @@ A react project that runs a customized ***'Table'*** component that ***wraps and
 In this project 'Table' is behaved like a ***library*** (placed outside of the 'components' folder) and it's being imported in components.
 
 Table component ***extends*** the behavior of DataGrid (in Community version):
-- Making it an ***easy to use and create editable tables*** (through the columns definition):
+- **Makes DataGrid component an easy to create editable tables (through the columns definition)**:
   - An easy-to-use values validation mechanism.
-  - The ability to define a required column (shows this definition on header and handles empty values).
-  - Shows cell's value validation errors messages while editing.
-- ***Extending and adding more column types*** (autocomplete).
+  - The ability to define a required column (*) (displayed in the column header with a star and handles validation of empty values).
+  - Shows cell's value validation errors messages while editing as a tooltip.
+- **Extending and adding more column types (autocomplete)**.
 
 ---
 
