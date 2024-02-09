@@ -12,15 +12,15 @@ self.__precacheManifest = [
     "url": "/sparrow-table/static/js/1.72fad8d9.chunk.js"
   },
   {
-    "revision": "89b048f7c2210a1428dd",
-    "url": "/sparrow-table/static/js/2.89b048f7.chunk.js"
+    "revision": "f52a499412d14a04f604",
+    "url": "/sparrow-table/static/js/2.f52a4994.chunk.js"
   },
   {
     "revision": "3ec9c96a3a976a0a0eb2",
     "url": "/sparrow-table/static/js/runtime~main.3ec9c96a.js"
   },
   {
-    "revision": "b0ee46e71cc81fcfbf2343f64f9182ee",
+    "revision": "9c9f2498465db038855ed1c23daed3c3",
     "url": "/sparrow-table/index.html"
   }
 ];

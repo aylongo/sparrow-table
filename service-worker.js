@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/sparrow-table/precache-manifest.f9b1196da121ca0366577af284e2b817.js"
+  "/sparrow-table/precache-manifest.6f450f4412ca5cc685fe6d88ae26df12.js"
 );
 
 workbox.clientsClaim();
