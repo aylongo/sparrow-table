@@ -32,6 +32,7 @@ export const TableCell = (props: GridCellProps) => {
       open={Boolean(cellError)}
       TransitionComponent={Zoom}
       PopperProps={{ disablePortal: true }}
+      sx={{ maxWidth: props.width * 0.8 }}
     >
       <GridCell {...props} />
     </TableErrorTooltip>

@@ -74,7 +74,7 @@ const columns: TableColDef[] = [
     editable: true,
     validation: (params: GridPreProcessEditCellProps) => {
       if (!params.props.value) {
-        return "חייב להזין ערך";
+        return "חייב להזין ערך גדול ושמן במיוחד";
       }
     },
   },
